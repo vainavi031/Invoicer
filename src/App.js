@@ -7,23 +7,30 @@ import ClientDetails from "./components/ClientDetails";
 import MainDetails from "./components/MainDetails";
 import Header from "./components/Header";
 import Dates from "./components/Dates";
+import Tableform from "./components/Tableform";
 
 function App() {
-  const [showInvoice, setShowInvoice] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(true);
 
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [bankName, setBankName] = useState("");
-  const [bankAccount, setBankAccount] = useState("");
-  const [website, setWebsite] = useState("");
-  const [clientName, setClientName] = useState("");
-  const [clientAddress, setClientAddress] = useState("");
-  const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [invoiceDate, setInvoiceDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [notes, setNotes] = useState("");
+  const [name, setName] = useState("Mr. XYZ");
+  const [address, setAddress] = useState("Ahmedabad, Gujarat");
+  const [email, setEmail] = useState("xyzenterprize@gmail.com");
+  const [phone, setPhone] = useState("8756943126");
+  const [bankName, setBankName] = useState("HDFC");
+  const [bankAccount, setBankAccount] = useState("123 456 789");
+  const [website, setWebsite] = useState("https://xyzenterprise.com");
+  const [clientName, setClientName] = useState("ABC");
+  const [clientAddress, setClientAddress] = useState("Ahmedabad");
+  const [invoiceNumber, setInvoiceNumber] = useState("2006");
+  const [invoiceDate, setInvoiceDate] = useState("03/04/2023");
+  const [dueDate, setDueDate] = useState("04/05/2023");
+  const [notes, setNotes] = useState("Pay to the bank account indicated above");
+  const [description, setDescription] = useState("")
+  const [quantity, setQuantity] = useState("")
+  const [price, setPrice] = useState("")
+  const [amount, setAmount] = useState("")
+  const [list, setList] = useState([])
+
 
   const handlePrint = () => {
     window.print();
@@ -39,17 +46,29 @@ function App() {
           <div>
             <Header handlePrint={handlePrint} />
             <MainDetails name={name} address={address} />
+
             <ClientDetails
               clientName={clientName}
               clientAddress={clientAddress}
             />
+
             <Dates
               invoiceNumber={invoiceNumber}
               invoiceDate={invoiceDate}
               dueDate={dueDate}
             />
-            <Table />l
-            <Notes notes={notes} />
+
+            <Table 
+            description= {description} 
+            quantity={quantity} 
+            price={price}
+            amount={amount}
+            list={list}
+            setList={setList}
+            />
+
+            <Notes notes={notes}/>
+
             <Footer
               name={name}
               address={address}
@@ -59,14 +78,17 @@ function App() {
               bankAccount={bankAccount}
               bankName={bankName}
             />
+
             <button
               onClick={() => setShowInvoice(false)}
               className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500
           hover:bg-transparent hover:text-blue-500
           transition-all duration-300"
+
             >
               Edit Information
             </button>
+            
           </div>
         ) : (
           <>
@@ -245,7 +267,7 @@ function App() {
 
               {/* This is our table form */}
               <article>
-                <TableForm
+                <Tableform
                   description={description}
                   setDescription={setDescription}
                   quantity={quantity}
@@ -254,9 +276,10 @@ function App() {
                   setPrice={setPrice}
                   amount={amount}
                   setAmount={setAmount}
-                  list={list}
+                 list ={list}
                   setList={setList}
                 />
+
               </article>
 
               <label htmlFor="notes">Additional Notes</label>
